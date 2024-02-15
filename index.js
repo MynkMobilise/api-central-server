@@ -12,6 +12,7 @@ dotenv.config()
 
 import authRouter from "./router/login.js";
 import docsRoute from "./router/document.route.js";
+import textRoute from "./router/text.route.js";
 
 const app = express();
 const port = 3000;
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRouter);
 app.use("/doc", docsRoute);
+app.use("/lang", textRoute);
 
 app.listen(port, () => {
 	console.log(`server is running at port : ${port}`);
