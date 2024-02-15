@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 
-export const invoiceCheck = async (req, res) => {
+export const receiptCheck = async (req, res) => {
 
     let sampleFile;
     let uploadPath;
@@ -18,7 +18,7 @@ export const invoiceCheck = async (req, res) => {
     sampleFile = req.files.document.data;
     uploadPath = __dirname + '/files/' + sampleFile.name;
     const client = new DocumentAnalysisClient(endpoint, new AzureKeyCredential(key));
-    const poller = await client.beginAnalyzeDocument("prebuilt-invoice", sampleFile);
+    const poller = await client.beginAnalyzeDocument("prebuilt-receipt", sampleFile);
     
     const {
         documents: [result]

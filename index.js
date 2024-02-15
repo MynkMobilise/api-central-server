@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -6,8 +7,11 @@ import fileUpload from "express-fileupload";
 import cors from "cors";
 
 
+dotenv.config()
+
+
 import authRouter from "./router/login.js";
-import invoice from "./router/invoice.js";
+import docsRoute from "./router/document.route.js";
 
 const app = express();
 const port = 3000;
@@ -23,7 +27,7 @@ app.get("/", (req, res) => {
 	res.send({ status: true, msg: "Hello world" });
 });
 app.use("/auth", authRouter);
-app.use("/inv", invoice);
+app.use("/doc", docsRoute);
 
 app.listen(port, () => {
 	console.log(`server is running at port : ${port}`);
