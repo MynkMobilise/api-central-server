@@ -23,45 +23,10 @@ export const invoiceCheck = async (req, res) => {
     const {
         documents: [result]
     } = await poller.pollUntilDone();
-    const data = {};
+    let data = {};
     if (result) {
-        const invoice = result.fields;
-        data.vendor_name = invoice.VendorName?.content;
-        data.customer_name = invoice.CustomerName?.content;
-        data.inv_date = invoice.InvoiceDate?.content;
-        data.due_date = invoice.DueDate?.content;
-       
-
-        const items = [];
-        for (const {
-                properties: item
-            } of invoice.Items?.values ?? []) {
-
-                items.push({
-                    product_code:item.ProductCode?.content ?? "<no product code>",
-                    desc: item.Description?.content,
-                    qty: item.Quantity?.content,
-                    date: item.Date?.content,
-                    unit: item.Unit?.content,
-                    unit_price: item.UnitPrice?.content,
-                    tax: item.Tax?.content,
-                    amount: item.Amount?.content
-                })
-            
-        }
-        data.items = items;
-        const totals = {};
-        totals.subtotal = invoice.SubTotal?.content;
-        totals.prev_unpaid_bal = invoice.PreviousUnpaidBalance?.content;
-        totals.tax = invoice.TotalTax?.content;
-        totals.amount_due = invoice.AmountDue?.content
-
-        data.totals = totals;
-        
-    } else {
-        data.error = "Expected at least one receipt in the result.";
+           data = result;
     }
-
 
     res.send({msg:'data found','data': data});
 }
