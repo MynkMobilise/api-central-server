@@ -28,5 +28,5 @@ export const receiptCheck = async (req, res) => {
            data = result;
     }
 
-    res.send({msg:'data found','data': data});
+    res.send({msg:'data found',status:true,'data': data});
 }
