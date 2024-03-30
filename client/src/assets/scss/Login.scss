@@ -1,0 +1,78 @@
+.wrapper .row {
+    width: 100%;
+    height: 100vh;
+}
+.img_sec {
+width: 100%;
+height: 100vh;
+background: url("../../../public/assets/img/bg_img.svg");
+}
+.img_sec img {
+    width: 100%;
+/*        height: 100vh;*/
+}
+.left_sec {
+    background: #F8F9FD;
+    height: 100vh;
+}
+.login-text {
+    font-family: 'Open Sans';
+    font-size: 20px;
+    font-weight: 500;
+    color: #22262B;
+}
+.input-group-prepend span , .form_input {
+    border: 0 none;
+    padding: 3px 0px;
+}
+.login-form form {        
+margin-bottom: 15px;
+background: #f7f7f7;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+padding: 30px;
+}
+.FoRm_part .input-group {
+    box-shadow: 0px 2px 2px #EDEDF2;
+}
+.form-check-label {
+font-size: 14px;
+font-weight: 300;
+color: #6A6E83;
+}
+input.form-check-input {
+width: 18px;
+height: 18px;
+border-radius: 4px;
+}
+.login_btn {
+padding: 12px 122px 12px 122px;
+border-radius: 6px;
+background:#0055CC;
+color: #fff;
+}
+.font_forgot {
+font-size: 14px;
+font-weight: 400;
+
+}
+.color_blue {
+color: #0055CC;
+font-size: 14px;
+font-weight: 500;
+}
+.text_sec {
+top: 30%;
+left: 7%;
+right: 7%;
+}
+.text_sec h1 {
+color: #fff;
+font-size: 68px;
+font-weight: 500;
+}
+.text-pera {
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+}

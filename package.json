@@ -8,7 +8,13 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "start http://localhost:3000/ && nodemon ./bin/www",
+    "client-install":"npm install --prefix ./client",
+    "install-all":"npm install && npm run client-install",
+    "client":"npm start --prefix client",
+    "server":"nodemon ./bin/www",
+    "build":"npm run build --prefix ./client",
+    "dev":"concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mobilise",

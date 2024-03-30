@@ -1,0 +1,161 @@
+.text-wrapper {
+    font-family: 'Poppins', sans-serif;
+
+    .heading {
+        font-size: 32px;
+        line-height: 48px;
+    }
+
+    .credits-btn {
+        border: 1px solid #0055CC;
+        border-radius: 4px;
+        color: #0055CC;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .hght {
+        height: 100vh;
+    }
+
+    .not-selected {
+        opacity: 0.6;
+        font-weight: 600;
+    }
+
+    .bdr {
+        border: 1px solid #61AFFE;
+        background-color: #EFF7FF;
+    }
+
+    .get-api {
+        background-color: #61AFFE;
+        color: white;
+        border: 1px solid #61AFFE;
+        border-radius: 2px;
+        font-weight: 500;
+        padding: 2px 20px;
+    }
+
+    .api {
+        opacity: 0.8;
+        font-size: 14px;
+    }
+
+    .summary {
+        font-size: 13px;
+        line-height: 17.5px;
+        font-family: Open sans;
+    }
+
+    .parameter {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    .bdr-btw {
+        border-right: 1px solid #004AB3B2;
+    }
+
+    .default-btn {
+        border: 1px solid #0055CC;
+        color: #0055CC;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+
+    .bck-clr {
+        background-color: #EFF7FF;
+    }
+
+    .bdr-btm {
+        border-bottom: 1px solid #D4D4E1;
+    }
+
+    .name {
+        flex: 2;
+    }
+
+    .flex-styles {
+        flex: 2;
+    }
+
+    .flex_styles {
+        flex: 3;
+    }
+
+    .desc {
+        flex: 3;
+    }
+
+    .integer {
+        font-size: 11px;
+    }
+
+    .path {
+        font-size: 10px;
+    }
+
+    .form-label {
+        font-size: 11px;
+    }
+
+
+    .form-input {
+        width: 345px;
+        font-size: 14px;
+    }
+
+    .api-btn {
+        border: 1px solid #0055CC;
+        background-color: #0055CC;
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .direction {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .box {
+        border: 1px solid #A8B1CE66;
+        background-color: white;
+        display: flex;
+        border-radius: 4px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .drop-files {
+        color: #646A73;
+        font-size: 14px;
+    }
+
+    .upload {
+        color: #0055CC;
+        font-size: 11px;
+        font-weight: 500;
+        border-bottom: 1px solid #0055CC;
+    }
+
+    .only-files {
+        color: #002A64;
+        font-size: 10px;
+    }
+
+    .ul-elements{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .tab{
+        flex: 2;
+        text-align: left;
+    }
+}

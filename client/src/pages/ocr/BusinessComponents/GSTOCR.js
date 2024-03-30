@@ -1,0 +1,486 @@
+import React, { useEffect, useState } from "react";
+import * as OcrServices from "../../Services/OcrServices";
+import Texttospeech from "../../../../src/assets/scss/TextToSpeech.module.scss";
+import { ToastContainer } from "react-toastify";
+import gstImage from './BusinessApiImages/download.png';
+import * as Notification from "../../../../src/Utils/Notification";
+
+export default function GSTOCR() {
+  const [panForm, setForm] = useState({
+    id_number: "",
+    dob: "",
+    name_on_card: "",
+    allotment_date: false,
+  });
+  const [errors, setErrors] = useState({});
+  const [submitForm, setIsSubmit] = useState(false);
+  const [outputJson, setJsonOuput] = useState([]);
+  const [base64String, setBase64String] = useState("");
+
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        setBase64String(base64String);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = (clickedImageURL) => {
+    setBase64String(clickedImageURL);
+    simulateFileUpload(clickedImageURL);
+  };
+
+  const simulateFileUpload = async (url) => {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image. HTTP status: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+
+      const fakeEvent = {
+        target: {
+          files: [blob],
+        },
+      };
+
+      handleImage(fakeEvent);
+    } catch (error) {
+      console.error('Error fetching image:', error);
+    }
+  };
+
+  const runSamples = () => {
+    handleImageClick(gstImage);
+  }
+
+  function validateForm() {
+    const newErrors = {};
+    if (!panForm.id_number) {
+      newErrors.id_number = "Pan no is required.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...panForm, [name]: value });
+  };
+
+  const [isShow, setShowHide] = useState(true);
+
+  function submit(event) {
+    // setIsSubmit(true);
+    // event.preventDefault();
+    // if (!validateForm()) {
+    //   return;
+    // }
+    const params = {
+      task_id: "74f4c926-250c-43ca-9c53-453e87ceacd1",
+      group_id: "8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e",
+      data: {
+        document1: base64String,
+      },
+    };
+
+    OcrServices.postGstOcrDetails(params).then(
+      (res) => {
+        console.log(res);
+        setJsonOuput(res);
+      },
+      (errors) => {
+        console.log(errors.response.status);
+        if (errors.response.status == 422) {
+          Notification.notifyError(errors);
+          alert("Error");
+        }
+      }
+    );
+  }
+
+  //Functions Responsible For Text To Speech Conversion
+  const runAnalyzer = () => {};
+
+  async function startAnalyzingDoc(img) {}
+
+  return (
+    <>
+      <ToastContainer />
+
+      <div className={`container-fluid ${Texttospeech["text-wrapper"]}`}>
+        {/* <!-- Page Heading --> */}
+        <div className="mb-2">
+          <div className="d-flex align-items-center w-100">
+            <h1
+              className={`${Texttospeech["heading"]} mr-auto text-gray  font-weight-thick`}
+            >
+              GST Certificate OCR
+            </h1>
+            <button className={`btn ${Texttospeech["credits-btn"]}`}>
+              Credits to be use 0
+            </button>
+          </div>
+        </div>
+        <div className="card border-0 bg-light">
+          <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <li className="nav-item" role="presentation">
+              <a
+                className="nav-link font-weight-thick active"
+                id="home-tab"
+                data-toggle="tab"
+                href="#home"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true"
+              >
+                Builder
+              </a>
+            </li>
+            <li className="nav-item" role="presentation">
+              <a
+                className={`nav-link text-gray ${Texttospeech["not-selected"]}`}
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+              >
+                Documentation
+              </a>
+            </li>
+          </ul>
+
+          <div className={`${Texttospeech["bdr"]}`}>
+            {/* <div className="d-flex align-items-center px-3 py-2">
+              <button className={`btn mr-2 ${Texttospeech["get-api"]}`}>
+                GET
+              </button>
+              <p
+                className={`mb-0 text-gray font-weight-thick ${Texttospeech["api"]}`}
+              >
+                /find/findByTags
+              </p>
+            </div>
+
+            <p
+              className={`mb-0 px-3 py-2 ${Texttospeech["summary"]} font-weight-thick text-gray`}
+            >
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Asperiores accusantium cupiditate autem laboriosam impedit earum,
+              deleniti temporibus officia voluptate in, sunt eveniet sed dolorem
+              quae non, harum rerum quibusdam eaque.
+            </p> */}
+            <div
+              className={`tab-content ${Texttospeech["hght"]}`}
+              id="myTabContent"
+            >
+              <div
+                className="tab-pane fade show active h-100"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <div className="row h-100">
+                  <div className={`col-md-6 pr-0 ${Texttospeech["bdr-btw"]}`}>
+                    <form>
+                      <div className="card border-0 rounded-0">
+                        <div className="card-header mb-3 bg-white d-flex align-items-center w-100">
+                          <h5
+                            className={`text-gray font-weight-thick mr-auto mb-0 ${Texttospeech["parameter"]}`}
+                          >
+                            PARAMETERS
+                          </h5>
+                          {/* <button
+                            className={`btn font-weight-thick ${Texttospeech["default-btn"]}`}
+                          >
+                            Default Value
+                          </button> */}
+                        </div>
+                        <div
+                          className={`card-body p-3 ${Texttospeech["bck-clr"]}`}
+                        >
+                          <div
+                            className={`d-flex align-items-center ${Texttospeech["bdr-btm"]} `}
+                          >
+                            <p
+                              className={`mb-3 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                            >
+                              Name
+                            </p>
+                            <p
+                              className={`mb-2 text-gray font-weight-thick ${Texttospeech["desc"]}`}
+                            >
+                              Description
+                            </p>
+                          </div>
+
+                          <div className="d-flex align-items-center mb-3">
+                            <div className={`${Texttospeech["flex-styles"]}`}>
+                              <p
+                                className={`mb-0 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                              >
+                                Input
+                              </p>
+                              <p
+                                className={`mb-0 text-gray ${Texttospeech["interger"]}`}
+                              >
+                                File
+                              </p>
+                              <p
+                                className={`mb-0 text-gray ${Texttospeech["path"]}`}
+                              >
+                                {/* (Path) */}
+                              </p>
+                            </div>
+                            <div
+                              className={`d-flex align-items-center ${Texttospeech["flex_styles"]}`}
+                            >
+                              <div className="file file--disabled">
+                                <label
+                                  htmlFor="input-file"
+                                  className="border-dotted mb-0 w-100"
+                                >
+                                  {base64String == "" ? (
+                                    <i className="fas fa-image display-1"></i>
+                                  ) : (
+                                    <img
+                                      className="img-fluid"
+                                      src={base64String}
+                                    ></img>
+                                  )}
+                                  <p>
+                                    <small>Upload File</small>
+                                  </p>
+                                </label>
+                                <input
+                                  id="input-file"
+                                  onChange={handleImage}
+                                  type="file"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className={`${Texttospeech["direction"]}`}>
+                            <button
+                              className={`btn ${Texttospeech["api-btn"]}`}
+                              onClick={() => submit()}
+                              type="button"
+                            >
+                              Run API
+                            </button>
+                          </div>
+
+                          <h5 className='form-label text-dark pt-4 text-underline'>Samples</h5>
+
+                          <div className='row'>
+
+                          <div className='col-4 my-3'>
+                            <button type="button" className="btn btn-outline-primary" onClick={runSamples}>Run Samples</button>
+                            </div>
+
+                            <div className='col-4 my-3 d-none'>
+                              <div className='card text-center w-100 p-2'>
+                                <div className='file file--disabled' onClick={() => handleImageClick(gstImage)}>
+                                  <label className='mb-0 w-100'>Aadhar Front
+                                    <img style={{ height: "100px" }} className='img-fluid' src={gstImage} alt="Preview" />
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="col-md-6 pl-0">
+                    <div className="card border-0 rounded-0 h-100">
+                      <div className="card-header bg-white mb-3">
+                        <h5
+                          className={`text-gray font-weight-thick mr-auto mb-0 ${Texttospeech["parameter"]}`}
+                        >
+                          RESPONSES
+                        </h5>
+                      </div>
+                      <div
+                        className={`card-body p-3 ${Texttospeech["bck-clr"]}`}
+                      >
+                        <div
+                          className={`d-flex align-items-center ${Texttospeech["bdr-btm"]} `}
+                        >
+                          <p
+                            className={`mb-3 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                          >
+                            Code
+                          </p>
+                          <p
+                            className={`mb-2 text-gray font-weight-thick ${Texttospeech["desc"]}`}
+                          >
+                            Description
+                          </p>
+                        </div>
+                        <div
+                          className={`mt-3 d-flex align-items-center ${Texttospeech[""]} `}
+                        >
+                          <p
+                            className={`mb-3 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                          >
+                            200
+                          </p>
+                          <p
+                            className={`mb-2 text-gray font-weight-thick ${Texttospeech["desc"]}`}
+                          >
+                            Successful Operation
+                          </p>
+                        </div>
+                        <ul
+                          className={`nav nav-tabs mb-2 ${Texttospeech["ul-elements"]}`}
+                          id="myTab"
+                          role="tablist"
+                        >
+                          <li className="nav-item" role="presentation">
+                            <a
+                              className="nav-link active"
+                              id="table-tab"
+                              data-toggle="tab"
+                              href="#table"
+                              role="tab"
+                              aria-controls="table"
+                              aria-selected="true"
+                            >
+                              JSON
+                            </a>
+                          </li>
+                          <li className="nav-item" role="presentation">
+                            <a
+                              className="nav-link"
+                              id="json-tab"
+                              data-toggle="tab"
+                              href="#json"
+                              role="tab"
+                              aria-controls="json"
+                              aria-selected="false"
+                            >
+                              Schema
+                            </a>
+                          </li>
+                          <li className="nav-item" role="presentation">
+                            <a
+                              className="nav-link"
+                              id="json-tab"
+                              data-toggle="tab"
+                              href="#json"
+                              role="tab"
+                              aria-controls="json"
+                              aria-selected="false"
+                            >
+                              Tabular
+                            </a>
+                          </li>
+                        </ul>
+                        <div className="d-flex">
+                          <div
+                            className={`tab-content h-100 ${Texttospeech["tab"]}`}
+                            id="myTabContent"
+                          >
+                            <div
+                              className="tab-pane fade show active h-100 p-3"
+                              id="table"
+                              role="tabpanel"
+                              aria-labelledby="table-tab"
+                            >
+                              {isShow ? (
+                                <table className="table">
+                                  <thead>
+                                    <th>Label</th>
+                                    <th>Value</th>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Your Written Text</td>
+                                      <td>input Text</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Your Speaker</td>
+                                      <td></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              ) : (
+                                <p>Waiting For Response.</p>
+                              )}
+                            </div>
+                            <div
+                              className="tab-pane fade h-100"
+                              id="json"
+                              role="tabpanel"
+                              aria-labelledby="json-tab"
+                            >
+                              <textarea
+                                className="form-control w-100 h-100"
+                                value={JSON.stringify(outputJson[0])}
+                              ></textarea>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          className={`mt-3 d-flex align-items-center ${Texttospeech[""]} `}
+                        >
+                          <p
+                            className={`mb-3 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                          >
+                            400
+                          </p>
+                          <p
+                            className={`mb-2 text-gray font-weight-thick ${Texttospeech["desc"]}`}
+                          >
+                            Invalid ID Supplied
+                          </p>
+                        </div>
+
+                        <div
+                          className={`mt-3 d-flex align-items-center ${Texttospeech[""]} `}
+                        >
+                          <p
+                            className={`mb-3 text-gray font-weight-thick ${Texttospeech["name"]}`}
+                          >
+                            400
+                          </p>
+                          <p
+                            className={`mb-2 text-gray font-weight-thick ${Texttospeech["desc"]}`}
+                          >
+                            Pet not found
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="tab-pane fade h-100"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

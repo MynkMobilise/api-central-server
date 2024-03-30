@@ -1,0 +1,54 @@
+import express from 'express';
+import cors from 'cors';
+import fetch from 'node-fetch';
+
+const app = express();
+const PORT = 3001;
+
+app.use(cors());
+
+app.get('/', async (req, res) => {
+  const url = 'https://eve.idfy.com/v3/tasks/sync/extract/ind_pan';
+  const accountId = 'a4f671eaa999/c11af692-7abe-4e92-9146-06f4810251f7';
+  const apiKey = '359ff93b-95c0-4fe3-8b58-aa770890e767';
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'account-id': accountId,
+    'api-key': apiKey,
+  };
+
+  const document11 = "https://sdxstaging.mobilisepro.com/backend/public/uploads/ocr/pan_images.jpg";
+
+  const data = {
+    task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
+    group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
+    data: {
+      document1: document11,
+      // Add other properties as needed
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseBody = await response.json();
+    console.log(responseBody);
+    res.json(responseBody);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Proxy server is running on http://localhost:${PORT}`);
+});
