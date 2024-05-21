@@ -21,7 +21,7 @@ import docsRoute from "./router/document.route.js";
 import textRoute from "./router/text.route.js";
 
 const app = express();
-const port = 8000;
+const port = 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
