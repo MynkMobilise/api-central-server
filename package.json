@@ -9,12 +9,12 @@
   "type": "module",
   "scripts": {
     "start": "start http://localhost:3000/ && nodemon ./bin/www",
-    "client-install":"npm install --prefix ./client",
-    "install-all":"npm install && npm run client-install",
-    "client":"npm start --prefix client",
-    "server":"nodemon ./bin/www",
-    "build":"npm run build --prefix ./client",
-    "dev":"concurrently \"npm run server\" \"npm run client\"",
+    "client-install": "npm install --prefix ./client",
+    "install-all": "npm install && npm run client-install",
+    "client": "npm start --prefix client",
+    "server": "nodemon ./bin/www",
+    "build": "npm run build --prefix ./client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mobilise",
@@ -29,6 +29,7 @@
     "express-fileupload": "^1.4.3",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "nodemon": "^3.0.1"
   }
 }

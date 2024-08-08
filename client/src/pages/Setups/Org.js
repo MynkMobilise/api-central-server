@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Org() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Replace 'https://api.example.com/data' with your API URL
+        fetch('https://api.example.com/data')
+          .then(response => response.json())
+          .then(data => {
+            setData(data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }, []);
   return (
     <>
         {/* <!-- Begin Page Content --> */}
@@ -33,26 +46,28 @@ export default function Org() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Tiger Nixon
-                                        <Link to={'/setups/org-mapping'}>
-                                            <i className='fa fa-eye float-right'></i>
-                                        </Link>
-                                    </td>
-                                    <td>Edinburgh Edinburgh Edinburgh</td>
-                                    <td>LCFPS3345</td>
-                                    <td>
-                                        <div class="custom-control custom-switch ">
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch1" />
-                                            <label class="custom-control-label" for="customSwitch1"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <i className='fa fa-edit text-info'></i>
-                                        <i className='fa fa-trash pl-2 text-danger'></i>
-                                    </td>
-                                </tr>
+                                {data.map(item => (
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Tiger Nixon
+                                            <Link to={'/setups/org-mapping'}>
+                                                <i className='fa fa-eye float-right'></i>
+                                            </Link>
+                                        </td>
+                                        <td>Edinburgh Edinburgh Edinburgh</td>
+                                        <td>LCFPS3345</td>
+                                        <td>
+                                            <div class="custom-control custom-switch ">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch1" />
+                                                <label class="custom-control-label" for="customSwitch1"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i className='fa fa-edit text-info'></i>
+                                            <i className='fa fa-trash pl-2 text-danger'></i>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

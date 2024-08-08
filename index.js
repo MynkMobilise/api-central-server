@@ -9,16 +9,20 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+//Database Connection With My SQL DataBase
+import connection from "./config/database.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 // const path = require('path');
 
 dotenv.config()
 
-
+//Import Routers
 import authRouter from "./router/login.js";
 import docsRoute from "./router/document.route.js";
 import textRoute from "./router/text.route.js";
+import orgRouter from "./router/org.route.js";
 
 const app = express();
 const port = 3000;
@@ -35,14 +39,16 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 console.log(path.join(__dirname, 'client/build'));
 app.get("/", (req, res) => {
 	res.send({ status: true, msg: "Hello world" });
-	// res.send()
-	// Relative path
 	const absolutePath = path.resolve('./client/build/index.html');
 	console.log('Absolute path:', absolutePath);
 
 	return res.sendFile(absolutePath);
 
 });
+
+//API Routes
+
+app.use("/api/org", orgRouter);
 app.use("/auth", authRouter);
 app.use("/doc", docsRoute);
 app.use("/lang", textRoute);
