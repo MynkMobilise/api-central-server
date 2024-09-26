@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import HeaderScss from "../../src/assets/scss/Header.module.scss";
 import { useState } from "react";
+import { useParams } from 'react-router-dom';
+
 
 export default function Header() {
+  const { id } = useParams();
+  console.log(id);
 
     const [mode, setMode] = useState('text'); 
   const toggleMode = (newMode) => {

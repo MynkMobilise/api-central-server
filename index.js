@@ -1,36 +1,43 @@
-import dotenv from 'dotenv'
-import express from "express";
-import morgan from "morgan";
-import helmet from "helmet";
-import bodyParser from "body-parser";
-import fileUpload from "express-fileupload";
-import cors from "cors";
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-// const path = require('path');
-
-dotenv.config()
-
-
-import authRouter from "./router/login.js";
-import docsRoute from "./router/document.route.js";
-import textRoute from "./router/text.route.js";
-
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const passport = require("passport");
+const authRoute = require("./routes/auth");
+const cookieSession = require("cookie-session");
+const passportStrategy = require("./passport");
+const session = require('express-session');
 const app = express();
-const port = 4000;
+const path = require('path');
+const bodyParser = require("body-parser");
 
-app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.json({ limit: "30mb" }));
-app.use(express.urlencoded({ extended: false }));
-app.use(morgan("dev")); //Req logging
-app.use(helmet()); //provide security headers
-app.use(fileUpload());
-// app.use(express.static(__dirname + '\\public'));
+app.use(bodyParser.urlencoded({extended : true }));
+
+app.use(session({
+	secret: 'somethingsecretgoeshere',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: true }
+ }));
+// app.use(
+// 	cookieSession({
+// 		name: "session",
+// 		keys: ["cyberwolve"],
+// 		maxAge: 24 * 60 * 60 * 100,
+// 	})
+// );
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+	cors({
+		origin: "http://localhost:3000",
+		methods: "GET,POST,PUT,DELETE",
+		credentials: true,
+	})
+);
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 console.log(path.join(__dirname, 'client/build'));
 app.get("/", (req, res) => {
@@ -43,10 +50,8 @@ app.get("/", (req, res) => {
 	return res.sendFile(absolutePath);
 
 });
-app.use("/auth", authRouter);
-app.use("/doc", docsRoute);
-app.use("/lang", textRoute);
 
-app.listen(port, () => {
-	console.log(`server is running at port : ${port}`);
-});
+app.use("/auth", authRoute);
+
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`Listenting on port ${port}...`));

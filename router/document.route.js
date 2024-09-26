@@ -1,10 +1,10 @@
-import express from "express";
-const router = express.Router();
+// const express = require("express");
+// const router = express.Router();
 
-import { invoiceCheck } from "../controller/invoice.controller.js";
-import { receiptCheck } from "../controller/receipt.controller.js";
+// const invoiceCheck =  require("../controller/invoice.controller.js");
+// const receiptCheck = require("../controller/receipt.controller.js");
 
-router.post("/invoice", invoiceCheck);
-router.post("/receipt", receiptCheck);
+// router.post("/invoice", invoiceCheck);
+// router.post("/receipt", receiptCheck);
 
-export default router
+// export default router
