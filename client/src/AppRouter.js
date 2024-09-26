@@ -84,6 +84,7 @@ import Roles from "./pages/Setups/Roles.js";
 import Token from "./pages/Setups/Token.js";
 import Users from "./pages/Setups/Users.js";
 import InvOcr from "./pages/Studios/OurStudio/InvOcr.js";
+import AISearch from "./pages/Studios/AISearch/AISearch.js";
 
 const router = createBrowserRouter([
   {
@@ -139,6 +140,10 @@ const router = createBrowserRouter([
       {
         path: "speech-studio/image-to-speech",
         element: <ImageToSpeech />,
+      },
+      {
+        path: "ai-search",
+        element: <AISearch />,
       },
       {
         path: "/document-studio",

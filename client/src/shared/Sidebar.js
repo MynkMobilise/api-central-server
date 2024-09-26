@@ -42,6 +42,12 @@ const menu = [
             link: 'chat-Studio',
             status: 1
         },
+        {
+            id:7,
+            name: 'AI Search',
+            link: 'ai-search',
+            status: 1
+        },
     ]
     },
     {id: 2, name: 'General API',status:0,image: '/assets/img/ai-studio.svg',
