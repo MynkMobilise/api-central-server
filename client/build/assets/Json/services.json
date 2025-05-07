@@ -1,0 +1,32 @@
+{
+    "data":[
+        {
+            "id":1,
+            "name":"Document Intelligence",
+            "type":"AI Studio Service",
+            "status":1,
+            "trash":0
+        },
+        {
+            "id":1,
+            "name":"Pan Card Verification",
+            "type":"General Service",
+            "status":1,
+            "trash":0
+        },
+        {
+            "id":1,
+            "name":"Aadhar Verification",
+            "type":"General Service",
+            "status":1,
+            "trash":0
+        },
+        {
+            "id":1,
+            "name":"Aadhar Verification",
+            "type":"General Service",
+            "status":1,
+            "trash":0
+        }
+    ]
+}

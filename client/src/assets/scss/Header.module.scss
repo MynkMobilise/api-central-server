@@ -1,0 +1,47 @@
+.navbar-wrapper{
+    font-family: 'Poppins', sans-serif;
+
+    .toggle-container {
+        display: flex;
+        margin: 20px;
+        border: 1px solid #0055CC;
+        background-color: #0055CC;
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 13px;
+        align-items: center;
+      }
+      
+      .toggle-button {
+        cursor: pointer;
+        color: white;
+        margin: 0 15px;
+      }
+      
+      .active {
+        background-color: white;
+        border: 1px solid white;
+    border-radius: 30px;
+    margin: 5px 8px;
+    padding: 1px 8px;
+        color: #0055CC;
+      }
+
+    .header-text{
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .header-btn{
+        border: 1px solid #0055CC;
+        color: #0055CC;
+        border-radius: 6px;
+        padding: 5px 21px;
+        font-size: 16px;
+    }
+}
+.chat_bot {
+    width: 500px;
+    position: fixed;
+    bottom: 0;
+}

@@ -1,0 +1,111 @@
+.main-header{
+    background: white;
+    color: black;
+    font-size: 20px;
+    width: 100%;
+}
+
+.main-header .header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-header .header img{
+    background-color: white;
+}
+
+.conversation{
+    padding: 5% 10%;;
+}
+
+.clint_query{
+    float: inline-start;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.clint_query span{
+    float: left;
+}
+
+.client_logo{
+    float: left;
+    width: 100%;
+}
+
+.client_name_img{
+    background: #34495e;
+    padding: 8px;
+    border-radius: 50%;
+    font-weight: 600;
+    float: left;
+    color: white;
+    font-size: 17px;
+}
+
+.gpt_name_img{
+    background: lightgreen;
+    padding: 8px;
+    border-radius: 50%;
+    font-weight: 600;
+    float: left;
+}
+
+.you{
+    padding-left: 9px;
+    font-weight: 700;
+    float: left;
+}
+
+.client_qust{
+    float: left;
+    padding-left: 6%;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.converstaion-box{
+    height: 75vh;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+.chat_textarea{
+    width: 96%;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-size: 18px;
+    margin-left: 1%;
+}
+
+.gpt_action{
+    padding: 0px;
+    border: none;
+    border-radius: 6px;
+    width: 40px;
+    position: absolute;
+    top: 15%;
+    right: 7%;
+    background: none;
+}
+
+.text-dark{
+    font-weight: 500;
+}
+
+.thumb_up{
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+}
+
+.thumb_up:hover {
+    margin-top: 1px;
+}
