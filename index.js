@@ -20,9 +20,10 @@ import authRouter from "./router/login.js";
 import docsRoute from "./router/document.route.js";
 import aiSearchRoute from "./router/search.route.js";
 import textRoute from "./router/text.route.js";
+import agentRoute from "./router/agent.route.js";
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -48,6 +49,7 @@ app.use("/auth", authRouter);
 app.use("/doc", docsRoute);
 app.use("/search", aiSearchRoute);
 app.use("/api/text", textRoute);
+app.use("/agent", agentRoute);
 
 app.listen(port, () => {
 	console.log(`server is running at port : ${port}`);
